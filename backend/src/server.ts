@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import routes from './routes';
 import { errorHandler } from './shared/middlewares/error-handler';
+import knowledgeBaseRouter from './modules/knowledge-base/routes';
 
 console.log('Iniciando servidor...');
 
@@ -43,6 +44,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use(errorHandler);
+app.use('/api/knowledge-base', knowledgeBaseRouter);
 
 console.log('Servidor configurado. Pronto para iniciar...');
 

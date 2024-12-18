@@ -8,6 +8,7 @@ interface User {
   id: string
   name: string
   email: string
+  tenant_name: string
   role: string
 }
 

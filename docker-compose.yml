@@ -34,7 +34,7 @@ services:
       - DB_USER=postgres
       - DB_PASS=postgres
       - DB_NAME=saas_lari
-      - JWT_SECRET=sua_chave_secreta_aqui
+      - JWT_SECRET=connect_ia_saas_secret_key_2024
       - PORT=3001
     ports:
       - "3001:3001"
@@ -68,17 +68,6 @@ services:
       - app-network
     depends_on:
       - backend
-    deploy:
-      resources:
-        limits:
-          memory: 2G
-        reservations:
-          memory: 1G
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
-      interval: 30s
-      timeout: 30s
-      retries: 3
 
 networks:
   app-network:
