@@ -1,8 +1,7 @@
 import bcrypt from 'bcryptjs';
 
 async function testBcrypt() {
-    // Hash atual no banco
-    const storedHash = '$2b$10$EzWqGiHxU/Jt.ZKxvCXKDuntr/RhWHD3w0T9UiN5ZYhxOBaWX52Uy';
+    const storedHash = '$2a$10$8DqVP8V5mxj0nKph3s7HX.0Gu4p.cYADwQxz0CMF9qQPRKHD5R.B6';
     const password = 'admin123';
     
     console.log('Testando bcrypt:');
@@ -13,13 +12,9 @@ async function testBcrypt() {
     const isValid = await bcrypt.compare(password, storedHash);
     console.log('Resultado da comparação:', isValid);
     
-    // Gerar novo hash para comparar formato
+    // Gerar novo hash para comparar
     const newHash = await bcrypt.hash(password, 10);
     console.log('Novo hash gerado:', newHash);
-
-    // Testar novo hash também
-    const isValidNewHash = await bcrypt.compare(password, newHash);
-    console.log('Resultado da comparação com novo hash:', isValidNewHash);
 }
 
 testBcrypt().catch(console.error); 

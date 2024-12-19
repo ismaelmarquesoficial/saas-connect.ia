@@ -27,4 +27,14 @@ curl -X POST http://localhost:3001/auth/login -H "Content-Type: application/json
 
 echo.
 echo === Reset do ambiente concluído! ===
+echo.
+echo Credenciais do usuário admin:
+echo Email: admin@admin.com
+echo Senha: admin123
+echo.
+echo Serviços disponíveis em:
+echo Frontend: http://localhost:3000
+echo Backend: http://localhost:3001
+echo Banco de dados: localhost:5433
+echo.
 pause 
