@@ -1,13 +1,12 @@
 import { Router } from 'express';
-import { AuthController } from './controllers/AuthController';
+import { AuthController } from './modules/auth/auth.controller';
 import { documentRouter } from './modules/knowledge-base/document.routes';
+import authRouter from './modules/auth/routes';
 
 const router = Router();
-const authController = new AuthController();
 
 // Rotas de autenticação
-router.post('/auth/register', authController.register);
-router.post('/auth/login', authController.login);
+router.use('/auth', authRouter);
 router.use('/documents', documentRouter);
 
 export default router; 

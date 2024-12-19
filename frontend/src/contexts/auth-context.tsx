@@ -8,8 +8,8 @@ interface User {
   id: string
   name: string
   email: string
-  tenant_name: string
   role: string
+  tenant_id: string
 }
 
 interface AuthContextType {
@@ -52,17 +52,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const response = await api.post('/auth/login', { email, password })
-      const { token, user } = response.data
+      console.log('Tentando login com:', { email, password });
+      const response = await api.post('/auth/login', { email, password });
+      console.log('Resposta do servidor:', response.data);
       
-      localStorage.setItem('@ConnectaIA:token', token)
-      setUser(user)
-      router.push('/dashboard')
-    } catch (error) {
-      console.error('Erro no login:', error)
-      throw new Error('Erro ao fazer login')
+      const { token, user } = response.data;
+      
+      localStorage.setItem('token', token);
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      setUser(user);
+      router.push('/dashboard');
+    } catch (error: any) {
+      console.error('Erro detalhado no login:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
+      
+      if (error.response?.data?.error) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Erro ao fazer login. Verifique suas credenciais.');
     }
-  }
+  };
 
   const register = async (name: string, email: string, password: string) => {
     try {
